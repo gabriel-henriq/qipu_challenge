@@ -12,13 +12,17 @@ class LinkedListNode(object):
         self._next = next
 
     def __repr__(self):
-        return str(self._value, self._next)
+        return f"{self._value}"
 
     @property
     def value(self):
         return self._value
 
     @property
+    def next(self):
+        return self._next
+
+    @next.getter
     def next(self):
         return self._next
 
@@ -36,12 +40,19 @@ class LinkedList(object):
         self._tail = None
         self._len = 0
 
-    def __len__(self):
-        if self._len is not None:
-            return self._len
-
     def __repr__(self):
-        return str(self.head, self.tail, self._len)
+        return f"Linkedlist(head={self.head}, tail={self.tail}, len={self._len})"
+
+    def __len__(self):
+        return self._len    
+    
+    @property
+    def len(self):
+        return self._len
+
+    @len.getter
+    def len(self):
+        return self._len
 
     @property
     def head(self):
