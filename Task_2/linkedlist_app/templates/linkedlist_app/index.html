@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="d-flex pt-5 mx-auto row col-8">
+    
+    <h1 class="text-center">Linked List</h1>
+
+    <form class="row justify-content-center pt-5 pb-5" method="post" action="/node_action/">
+        {% csrf_token %}
+        <div class="col-auto">
+            <label class="visually-hidden" for="autoSizingInput">Name</label>
+            <input name="linkedlist_input" type="text" class="form-control" id="autoSizingInput" placeholder="First Node">
+        </div>
+        <div class="col-auto">
+            <label class="visually-hidden" for="autoSizingSelect">Preference</label>
+            <select name="linkedlist_operation" class="form-select" id="autoSizingSelect">
+            <option value="insert">Insert</option>
+            <option value="append">Append</option>
+            <option value="remove_first">Remove First</option>
+            </select>
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+
+    <div class="d-flex row flex-wrap justify-content-start pt-2">
+
+
+        <div class="d-flex pb-5">
+            <p class="badge fs-2 bg-dark">Lenght: {{ linkedlist.len }}</p>
+        </div>
+        
+        <div class="d-flex flex-wrap">
+            {% for entry in nodeList %}
+                {% if linkedlist.len == 1 %}
+                    <div class="d-flex my-3 mx-4">
+                        <div class="position-relative py-3 px-4 bg-primary border-end border-light rounded-start">
+                                <span class="badge position-absolute top-0 start-0 py-1 px-2 translate-middle rounded-pill bg-dark" >Head</span>
+                            <p class="badge fs-6 m-0 text-center">{{ entry.value }}</p>
+                        </div>
+
+                        <div class="position-relative py-3 px-4 bg-secondary rounded-end">
+                            <span class="badge position-absolute top-100 start-100 py-1 px-2 translate-middle rounded-pill bg-dark" >Ref</span>
+                            <p class="badge fs-6 m-0 text-center">{{ entry.ref }}</p>
+                        </div>
+                    </div>
+                    <div class="d-flex my-3 mx-4">
+                        <div class="position-relative py-3 px-4 bg-primary border-end border-light rounded-start">
+                                <span class="badge position-absolute top-0 start-0 py-1 px-2 translate-middle rounded-pill bg-dark" >Tail</span>
+                            <p class="badge fs-6 m-0 text-center">{{ entry.value }}</p>
+                        </div>
+
+                        <div class="position-relative py-3 px-4 bg-secondary rounded-end">
+                            <span class="badge position-absolute top-100 start-100 py-1 px-2 translate-middle rounded-pill bg-dark" >Ref</span>
+                            <p class="badge fs-6 m-0 text-center">{{ entry.ref }}</p>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="d-flex my-3 mx-4">
+                        <div class="position-relative py-3 px-4 bg-primary border-end border-light rounded-start">
+                            {% if entry.index == 0 %}
+                                <span class="badge position-absolute top-0 start-0 py-1 px-2 translate-middle rounded-pill bg-dark" >Head</span>
+                            {% endif %}
+                            {% if entry.ref == None %}
+                                <span class="badge position-absolute top-0 start-0 py-1 px-2 translate-middle rounded-pill bg-dark" >Tail</span>
+                            {% endif %}
+                            <p class="badge fs-6 m-0 text-center">{{ entry.value }}</p>
+                        </div>
+                        <div class="position-relative py-3 px-4 bg-secondary rounded-end">
+                            <span class="badge position-absolute top-100 start-100 py-1 px-2 translate-middle rounded-pill bg-dark" >Ref</span>
+                            <p class="badge fs-6 m-0 text-center">{{ entry.ref }}</p>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}
