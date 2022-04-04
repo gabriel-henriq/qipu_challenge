@@ -125,11 +125,8 @@ def get_cards(doc: BeautifulSoup) -> dict:
 
     cards = doc.find("hr", id="cartas").find_next_siblings("h4")
     cards_len = len(cards)
-    if cards_len <= 3 and cards_len != 2:
-        cards = doc.find("hr", id="cartas").find_next_siblings("h4")[1:2]
-
-    elif cards_len > 3:
-        cards = doc.find("hr", id="cartas").find_next_siblings("h4")[1:-1]
+    if cards_len > 3:
+        cards = doc.find("hr", id="cartas").find_next_siblings("h4")[2:-1]
     else:
         return
     cards_list = []
@@ -166,8 +163,7 @@ def get_sunrise_sunset(doc: BeautifulSoup) -> dict:
         }
         return sunrise_sunset
     else:
-        sunrise_sunset = {"sunrise": "Não encontrado.", "sunset": "Não encontrado."}
-        return sunrise_sunset
+        return
 
 
 def get_metar(doc: BeautifulSoup) -> str:
@@ -176,7 +172,7 @@ def get_metar(doc: BeautifulSoup) -> str:
     if metar:
         return metar.find_next_sibling("p").text.strip()
     else:
-        return "Não encontrado."
+        return
 
 
 def get_taf(doc: BeautifulSoup) -> str:
@@ -185,7 +181,7 @@ def get_taf(doc: BeautifulSoup) -> str:
     if taf:
         return taf.find_next_sibling("p").text.strip()
     else:
-        return "Não encontrado."
+        return
 
 
 def print_data(data: dict) -> None:
@@ -208,18 +204,19 @@ if __name__ == "__main__":
     if test_mode:
         test_icaos()
     else:
-        icao = str(input("\nDigite um ICAO: "))
-        url = f"https://aisweb.decea.mil.br/?i=aerodromos&codigo={icao}"
-        page = requests.get(url).text
-        doc = BeautifulSoup(page, "html.parser")
-        data = dict()
+        while True:
+            icao = str(input("\nDigite um ICAO: "))
+            url = f"https://aisweb.decea.mil.br/?i=aerodromos&codigo={icao}"
+            page = requests.get(url).text
+            doc = BeautifulSoup(page, "html.parser")
+            data = dict()
 
-        try:
-            validate(doc)
-            data["sunrise_sunset"] = get_sunrise_sunset(doc)
-            data["metar"] = get_metar(doc)
-            data["taf"] = get_taf(doc)
-            data["cards"] = get_cards(doc)
-            print_data(data)
-        except Exception as e:
-            print(e)
+            try:
+                validate(doc)
+                data["sunrise_sunset"] = get_sunrise_sunset(doc)
+                data["metar"] = get_metar(doc)
+                data["taf"] = get_taf(doc)
+                data["cards"] = get_cards(doc)
+                print_data(data)
+            except Exception as e:
+                print(e)
