@@ -168,16 +168,22 @@ def get_sunrise_sunset(doc: BeautifulSoup) -> dict:
 
 def get_metar(doc: BeautifulSoup) -> str:
 
-    metar = doc.find("h5", text="METAR")
-    if metar:
-        return metar.find_next_sibling("p").text.strip()
+    metar_header = doc.find("h5", class_="mb-0 heading-primary", text="METAR")
+    if metar_header:
+        metar = metar_header.find_next_siblings("p")
+        if len(metar) == 2:
+            metar = metar[1].text.strip()
+        else:
+            metar = metar_header.find_next_sibling("p").text.strip()
+
+        return metar
     else:
         return
 
 
 def get_taf(doc: BeautifulSoup) -> str:
 
-    taf = doc.find("h5", text="TAF")
+    taf = doc.find("h5", class_="mb-0 heading-primary", text="TAF")
     if taf:
         return taf.find_next_sibling("p").text.strip()
     else:
