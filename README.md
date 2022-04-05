@@ -4,9 +4,9 @@
 Challenge provide by QIPU
 
 * **Contents**
-    * [Task 1](#Task1)
-    * [Task 2](#Task2)
-    * [Task 3](#Task3)
+    * [Task 1](#Task-1)
+    * [Task 2](#Task-2)
+    * [Task 3](#Task-3)
 
 
 # Run Locally
