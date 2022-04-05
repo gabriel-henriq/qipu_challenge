@@ -21,7 +21,7 @@ then
  cd qipu_challenge/
 ```
 
-## [Task 1](./qipu_project/Task_1)
+## Task 1
 
 Run the following commands:
 
@@ -39,7 +39,7 @@ After that you should be able to see the final assertions result
 100%
 ```
 
-## [Task 2](./qipu_project/Task_2)
+## Task 2
 
 ```bash
 cd Task_2/
@@ -93,7 +93,7 @@ http://localhost:8080/
 
 
 
-## [Task 3](./qipu_project/Task_3)
+## Task 3
 
 ```bash
 cd Task_3/
